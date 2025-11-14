@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document Archive</title>
@@ -12,6 +13,9 @@
             margin: 0;
             padding: 0;
         }
+<button onclick="toggleDark()" style="position: fixed; top: 10px; right: 10px;">
+  🌙 Dark Mode
+</button>
 
         header {
             background: #4c6ef5;
@@ -80,6 +84,12 @@
         }
     </style>
 </head>
+    <script>
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
+</script>
+
 <body>
 
 <header>📄 My Document Archive</header>
