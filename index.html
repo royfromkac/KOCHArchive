@@ -1,103 +1,107 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Archive</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Document Archive</title>
+  <style>
+    :root{
+      --bg: #f4f6fa;
+      --card: #ffffff;
+      --text: #12263f;
+      --muted:#5b6b88;
+      --accent: #4c6ef5;
+      --item-bg: #eef2ff;
+      --item-hover: #dbe3ff;
+    }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f6fa;
-            margin: 0;
-            padding: 0;
-        }
-<button onclick="toggleDark()" style="position: fixed; top: 10px; right: 10px;">
-  🌙 Dark Mode
-</button>
+    .dark{
+      --bg: #0b0b0d;
+      --card: #0f1720;
+      --text: #e6eef8;
+      --muted: #9aa7bf;
+      --accent: #6ea0ff;
+      --item-bg: #111418;
+      --item-hover: #162027;
+    }
 
-        header {
-            background: #4c6ef5;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            box-shadow: 0px 2px 10px rgba(0,0,0,0.2);
-        }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      transition: background .25s ease, color .25s ease;
+    }
 
-        .container {
-            max-width: 750px;
-            margin: 40px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-        }
+    header{
+      background: linear-gradient(90deg,var(--accent), #6b8cff);
+      color:white;
+      padding:22px 18px;
+      text-align:center;
+      font-size:1.6rem;
+      font-weight:700;
+      letter-spacing:0.6px;
+      box-shadow:0 3px 18px rgba(12,20,60,.12);
+    }
 
-        h2 {
-            margin-top: 0;
-            color: #333;
-            font-size: 1.4rem;
-        }
+    .wrap{max-width:980px;margin:32px auto;padding:20px}
+    .card{
+      background:var(--card);
+      border-radius:12px;
+      padding:22px;
+      box-shadow:0 6px 26px rgba(12,20,60,.06);
+    }
 
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+    h2{margin:0 0 14px 0;font-size:1.25rem}
+    p.lead{color:var(--muted);margin:0 0 18px 0}
 
-        li {
-            background: #eef2ff;
-            margin: 10px 0;
-            padding: 14px 18px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.2s;
-        }
+    .controls{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+    .search{
+      flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(0,0,0,.06);
+      background:transparent;color:var(--text);
+      outline:none;
+    }
 
-        li:hover {
-            background: #dbe3ff;
-            transform: translateX(3px);
-        }
+    .toggle-btn{
+      background:transparent;border:1px solid rgba(0,0,0,.06);padding:8px 10px;border-radius:10px;cursor:pointer;
+    }
 
-        a {
-            text-decoration: none;
-            color: #1c3faa;
-            font-weight: bold;
-        }
+    ul.list{list-style:none;margin:16px 0 0 0;padding:0;display:grid;gap:10px}
+    ul.list li{
+      display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:10px;background:var(--item-bg);
+      transition:transform .12s ease, background .12s ease;
+    }
+    ul.list li:hover{transform:translateY(-3px);background:var(--item-hover)}
 
-        .download {
-            background: #4c6ef5;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 7px;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
+    .meta{color:var(--muted);font-size:0.9rem}
+    .download{background:var(--accent);color:white;padding:8px 12px;border-radius:8px;text-decoration:none;font-weight:600}
+    .download:hover{opacity:.95}
 
-        .download:hover {
-            background: #3b5bdb;
-        }
-    </style>
+    footer{margin-top:18px;color:var(--muted);font-size:0.9rem;text-align:center}
+
+    @media(max-width:640px){
+      .controls{flex-direction:column}
+      .download{padding:7px 10px}
+    }
+  </style>
 </head>
-    <script>
-function toggleDark() {
-  document.body.classList.toggle("dark");
-}
-</script>
-
 <body>
+  <header>📄 My Document Archive</header>
 
-<header>📄 My Document Archive</header>
+  <div class="wrap">
+    <div class="card">
+      <h2>Available Files</h2>
+      <p class="lead">Click a download button to fetch the file. Use the search box to filter the list. Toggle dark mode to switch theme.</p>
 
-<div class="container">
-    <h2>Available Files</h2>
-    <ul>
+      <div class="controls">
+        <input id="search" class="search" placeholder="Search documents by title..." />
+        <button id="themeBtn" class="toggle-btn" aria-pressed="false">🌙 Dark</button>
+      </div>
 
+      <ul id="fileList" class="list">
 <li><span>09chapter8 Toumin</span><a class="download" href="09chapter8 Toumin.pdf" download>Download</a></li>
 <li><span>10266 Article Text</span><a class="download" href="10266-Article Text-20158-1-10-20211021.pdf" download>Download</a></li>
 <li><span>19_chapter 8</span><a class="download" href="19_chapter 8.pdf" download>Download</a></li>
@@ -158,10 +162,50 @@ function toggleDark() {
 <li><span>Ethnolinguistic Koch People Group</span><a class="download" href="rahamatethnolinguistickochpeoplegroupfinal.pdf" download>Download</a></li>
 <li><span>Rajbanshi</span><a class="download" href="rajbanshi.pdf" download>Download</a></li>
 <li><span>Rajbanshi Access to Micro-credit</span><a class="download" href="rajbanshi_people_of_northern_west_bengal_access_to_micro_credit.pdf" download>Download</a></li>
+      </ul>
 
+      <footer>Made with ❤️ — hosted on GitHub Pages</footer>
+    </div>
+  </div>
 
-    </ul>
-</div>
+  <script>
+    // theme handling (persisted)
+    const themeBtn = document.getElementById('themeBtn');
+    const saved = localStorage.getItem('theme');
+    if(saved === 'dark') document.documentElement.classList.add('dark');
+    updateThemeButton();
 
+    themeBtn.addEventListener('click', ()=>{
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      updateThemeButton();
+    });
+
+    function updateThemeButton(){
+      const on = document.documentElement.classList.contains('dark');
+      themeBtn.textContent = on ? '☀️ Light' : '🌙 Dark';
+      themeBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    }
+
+    // search filtering
+    const search = document.getElementById('search');
+    const list = document.getElementById('fileList');
+    search.addEventListener('input', ()=>{
+      const q = search.value.trim().toLowerCase();
+      Array.from(list.children).forEach(li=>{
+        const title = li.querySelector('span').textContent.toLowerCase();
+        li.style.display = title.includes(q) ? 'flex' : 'none';
+      });
+    });
+
+    // keyboard shortcut: press 'd' to toggle dark
+    document.addEventListener('keydown', e=>{
+      // ignore when typing in input
+      if(e.key.toLowerCase() === 'd' && document.activeElement.tagName !== 'INPUT'){
+        themeBtn.click();
+      }
+    });
+  </script>
 </body>
 </html>
